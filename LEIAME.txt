@@ -1,0 +1,137 @@
+╔══════════════════════════════════════════════════════════════╗
+║              TECLA IA — Expansor de Texto                    ║
+║          Atalho global: Ctrl+Alt+I  |  Ollama Local          ║
+╚══════════════════════════════════════════════════════════════╝
+
+O que é?
+─────────
+O Tecla IA é um programa que roda em background no Windows.
+Quando você pressiona Ctrl+Alt+I em qualquer campo de texto,
+ele captura o que você digitou, envia para uma IA local (Ollama)
+e substitui automaticamente pelo texto expandido.
+
+Exemplo:
+  Você digita:  "frase de bom dia"
+  Pressiona:    Ctrl+Alt+I
+  Resultado:    "Olá! Bom dia! Que hoje seja um dia repleto de
+                alegrias, conquistas e momentos especiais para você!"
+
+
+═══════════════════════════════════════════════════════════════
+                     INSTALAÇÃO (PASSO A PASSO)
+═══════════════════════════════════════════════════════════════
+
+PASSO 1 — Instale o Python
+──────────────────────────
+  • Acesse: https://www.python.org/downloads/
+  • Baixe a versão mais recente (3.11 ou superior)
+  • IMPORTANTE: Durante a instalação, marque ✓ "Add Python to PATH"
+
+
+PASSO 2 — Instale o Ollama
+──────────────────────────
+  • Acesse: https://ollama.com
+  • Baixe e instale o Ollama para Windows
+  • Após instalar, abra o Prompt de Comando (cmd) e rode:
+
+      ollama pull llama3.2
+
+  • Aguarde o download do modelo (≈ 2 GB)
+  • Para testar, rode: ollama run llama3.2
+
+
+PASSO 3 — Instale as dependências do Tecla IA
+──────────────────────────────────────────────
+  • Clique duas vezes em:   1_INSTALAR.bat
+  • Aguarde a instalação das bibliotecas Python
+
+
+PASSO 4 — Inicie o Tecla IA
+────────────────────────────
+  • Clique duas vezes em:   2_INICIAR_COMO_ADMIN.bat
+  • Aceite a janela de permissão de Administrador
+    (necessário para capturar teclas em qualquer aplicativo)
+  • Um ícone "AI" aparecerá na bandeja do sistema (perto do relógio)
+
+
+PASSO 5 (Opcional) — Iniciar automaticamente com o Windows
+────────────────────────────────────────────────────────────
+  • Clique duas vezes em:   3_INICIAR_COM_WINDOWS.bat
+  • O Tecla IA passará a iniciar automaticamente com o Windows
+
+
+═══════════════════════════════════════════════════════════════
+                       COMO USAR
+═══════════════════════════════════════════════════════════════
+
+1. Clique em qualquer campo de texto (Word, email, WhatsApp Web,
+   navegador, bloco de notas, etc.)
+
+2. Digite sua ideia ou texto curto. Exemplos:
+     • "email pedindo reunião"
+     • "desculpas por atraso"
+     • "parabéns de aniversário formal"
+     • "resposta negando proposta"
+
+3. Pressione Ctrl+Alt+I
+
+4. Aguarde 3 a 10 segundos (dependendo da velocidade do seu PC)
+
+5. O texto será substituído automaticamente pela versão expandida!
+
+
+═══════════════════════════════════════════════════════════════
+                     PERSONALIZAÇÃO
+═══════════════════════════════════════════════════════════════
+
+Abra o arquivo ia_atalho.py em um editor de texto (ex: Notepad)
+e localize a seção "CONFIGURAÇÕES":
+
+  ATALHO        → Mude o atalho de teclado (padrão: ctrl+alt+i)
+                  Exemplos: "alt+shift+i", "ctrl+shift+space"
+
+  MODELO_OLLAMA → Mude o modelo de IA
+                  Modelos disponíveis no Ollama:
+                    • llama3.2     (padrão, bom equilíbrio)
+                    • llama3.2:1b  (mais rápido, menor qualidade)
+                    • mistral      (boa alternativa)
+                    • phi3         (leve e rápido)
+                  Para baixar outro modelo: ollama pull <nome>
+
+  PROMPT_SISTEMA → Personalize o comportamento da IA
+
+
+═══════════════════════════════════════════════════════════════
+                      SOLUÇÃO DE PROBLEMAS
+═══════════════════════════════════════════════════════════════
+
+✗ "Ollama não detectado"
+  → Abra o Ollama (ícone na bandeja) ou reinicie o computador
+  → Verifique se o Ollama está rodando: acesse http://localhost:11434
+
+✗ O atalho não funciona
+  → Certifique-se de que 2_INICIAR_COMO_ADMIN.bat está rodando
+    com permissões de Administrador
+  → Verifique se o ícone "AI" aparece na bandeja do sistema
+
+✗ Texto não é substituído em algum app específico
+  → Alguns apps bloqueiam Ctrl+A (selecionar tudo)
+  → Solução: selecione manualmente o texto antes de pressionar o atalho
+
+✗ Resposta muito lenta
+  → Troque o modelo para uma versão menor: llama3.2:1b
+  → Verifique se outros programas pesados estão abertos
+
+✗ "Erro: Tempo limite excedido"
+  → Aumente TIMEOUT_API no arquivo ia_atalho.py (padrão: 60)
+
+
+═══════════════════════════════════════════════════════════════
+Arquivos do projeto:
+  ia_atalho.py          → Código principal do aplicativo
+  requirements.txt      → Lista de dependências Python
+  1_INSTALAR.bat        → Instala as dependências
+  2_INICIAR_COMO_ADMIN.bat  → Inicia o aplicativo
+  3_INICIAR_COM_WINDOWS.bat → Configura inicialização automática
+  LEIAME.txt            → Este arquivo
+═══════════════════════════════════════════════════════════════
