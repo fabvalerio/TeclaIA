@@ -1,102 +1,109 @@
-# Tecla IA — Expansor Inteligente de Texto para Windows
+# Tecla IA — Assistente de texto local para Windows
 
-> Pressione um atalho e sua ideia vira uma mensagem completa — tudo rodando localmente, sem custo e sem enviar dados para a nuvem.
+> Atalhos globais transformam ou corrigem o que você digitou usando o Ollama no seu PC — sem nuvem, sem custo por uso.
 
 ---
 
 ## O que é o Tecla IA?
 
-O Tecla IA é um programa leve que roda em segundo plano no Windows. Com um simples atalho de teclado (**Ctrl+Alt+I**), ele captura o texto que você digitou em qualquer campo, envia para uma IA rodando localmente no seu computador e substitui o texto automaticamente por uma versão mais completa e natural.
+Programa leve que fica em segundo plano no Windows. Em qualquer campo de texto, você usa um atalho; o texto selecionado (ou o campo atual) é enviado à API local do **Ollama** e o resultado substitui o texto automaticamente.
 
-Tudo acontece localmente: nenhum dado sai da sua máquina, sem mensalidade, sem limite de uso.
+- **Privacidade** — inferência só na máquina (Ollama em `localhost`)
+- **Sem assinatura** — não depende de API paga
+- **Uso amplo** — funciona na maioria dos apps com campo de texto (Word, navegador, WhatsApp Web, e-mail, etc.)
 
----
+Enquanto a IA gera, uma janela no canto inferior direito mostra **pré-visualização em streaming** do texto, no estilo “vai aparecendo aos poucos”.
 
-## Como funciona
-
-1. Você digita uma ideia curta em qualquer campo de texto
-2. Pressiona **Ctrl+Alt+I**
-3. Uma janela de carregamento aparece no canto inferior direito
-4. O texto é substituído automaticamente pela versão expandida
-
-A IA sempre reescreve o texto **na sua voz**, como se você estivesse enviando uma mensagem para outra pessoa. Ela nunca responde ao texto — apenas o expande.
-
-### Exemplos
-
-| Você digita | Tecla IA reescreve como |
-|---|---|
-| `Bom dia` | Olá, bom dia! Tudo bem contigo? |
-| `Você está aí?` | Oi! Por acaso você está aí agora? |
-| `Reunião amanhã` | Oi! Passando para confirmar nossa reunião amanhã, tudo certo? |
-| `Obrigado pela ajuda` | Muito obrigado pela sua ajuda, foi essencial! |
-| `Preciso de um favor` | Olá! Precisaria de um pequeno favor seu, pode me ajudar? |
+Se **Pillow** e **pystray** estiverem instalados, um ícone **AI** aparece na bandeja do sistema com o menu de atalhos e a opção **Sair**. Caso contrário, o programa segue funcionando em modo console (janela do CMD aberta).
 
 ---
 
-## A ideia por trás do projeto
+## Atalhos
 
-A ideia surgiu da necessidade de digitar mensagens mais completas e naturais sem perder tempo elaborando cada frase. Em vez de digitar um texto longo, o usuário digita apenas a essência da mensagem e deixa a IA completar.
+| Atalho | Modo | Comportamento |
+|--------|------|----------------|
+| **Ctrl+Alt+I** | Casual | Reescreve na sua voz, tom descontraído (mensagem para outra pessoa). Não “responde” ao texto — só reformula. |
+| **Ctrl+Alt+O** | Formal | Reescreve em tom profissional (cliente, chefe, e-mail formal). Mesma regra: é a sua mensagem, não uma resposta da IA ao conteúdo. |
+| **Ctrl+Alt+P** | Corrigir | Apenas gramática, ortografia e pontuação em português; não expande nem muda o tom. |
+| **Ctrl+Alt+R** | Responder | A IA **responde de fato** ao que você escreveu (perguntas, pedidos, código, explicações). |
+| **Ctrl+Alt+Z** | Desfazer | Restaura o texto **antes** da última operação feita com I, O, P ou R (um nível). |
 
-Três princípios guiaram o projeto:
+---
 
-- **Privacidade total** — a IA roda 100% local, nenhum dado sai do computador
-- **Zero custo de uso** — sem API paga, sem limite de mensagens, sem assinatura
-- **Funciona em qualquer lugar** — Word, Outlook, WhatsApp Web, navegador, Notepad, Discord e qualquer app Windows com campo de texto
+## Como usar (resumo)
+
+1. Clique no campo de texto e digite (ou selecione o trecho desejado).
+2. Pressione o atalho do modo que quer (**I**, **O**, **P** ou **R**).
+3. Aguarde a janela de progresso e o fim da geração; o texto é colado no lugar.
+4. Se quiser voltar atrás, use **Ctrl+Alt+Z** logo em seguida.
+
+### Exemplos (modos Casual / Formal)
+
+| Você digita | Ideia do resultado |
+|-------------|-------------------|
+| `Bom dia` | Saudação mais completa e natural |
+| `Reunião amanhã` | Mensagem confirmando ou lembrando a reunião |
+| `Obrigado pela ajuda` | Agradecimento mais elaborado |
+
+*(O resultado exato depende do modelo e do prompt configurados em `ia_atalho.py`.)*
 
 ---
 
 ## Requisitos
 
 | Componente | Descrição |
-|---|---|
+|------------|-----------|
 | Windows 10 / 11 | Sistema operacional |
-| Python 3.10+ | Linguagem do projeto — [python.org](https://www.python.org/downloads/) |
-| Ollama | Motor de IA local — [ollama.com](https://ollama.com) |
-| Modelo llama3.2 | ~2 GB — instalado via `ollama pull llama3.2` |
-| RAM | 8 GB mínimo, 16 GB recomendado |
+| Python 3.10+ | [python.org](https://www.python.org/downloads/) — marque **Add Python to PATH** |
+| Ollama | [ollama.com](https://ollama.com) |
+| Modelo sugerido | `llama3.2` (~2 GB) — `ollama pull llama3.2` |
+| RAM | 8 GB mínimo; 16 GB recomendado |
 
 ---
 
 ## Instalação
 
-### 1. Instalar o Python
+### 1. Python e Ollama
 
-Baixe em [python.org](https://www.python.org/downloads/).
-Durante a instalação, marque obrigatoriamente **"Add Python to PATH"**.
-
-### 2. Instalar o Ollama
-
-Baixe em [ollama.com](https://ollama.com), instale e execute no terminal:
+Instale o Python e o Ollama pelos sites oficiais. Depois, no terminal:
 
 ```bash
 ollama pull llama3.2
 ```
 
-Aguarde o download do modelo (~2 GB).
+### 2. Dependências do projeto
 
-### 3. Instalar as dependências do Tecla IA
-
-Clique duas vezes em:
+Execute (duplo clique):
 
 ```
 1_INSTALAR.bat
 ```
 
-### 4. Iniciar
+Isso instala `keyboard`, `pyperclip` e `requests`, e tenta instalar **pystray** e **Pillow** para o ícone na bandeja (se falhar, o app continua sem bandeja).
 
-Clique duas vezes em:
+### 3. Iniciar
+
+Execute como administrador (duplo clique):
 
 ```
 2_INICIAR_COMO_ADMIN.bat
 ```
 
-Aceite a janela de permissão de Administrador — necessária para capturar teclas globalmente.
+A elevação é necessária para **atalhos globais** em qualquer aplicativo.
 
-### 5. (Opcional) Iniciar com o Windows
+### 4. (Opcional) Início com o Windows
 
 ```
 3_INICIAR_COM_WINDOWS.bat
 ```
+
+### 5. (Opcional) Gerar `TeclaIA.exe`
+
+```
+4_CRIAR_EXE.bat
+```
+
+Gera `dist\TeclaIA.exe` com PyInstaller (`--onefile`, sem console, com UAC admin). Quem usar o `.exe` ainda precisa do **Ollama** instalado e do modelo baixado.
 
 ---
 
@@ -104,11 +111,15 @@ Aceite a janela de permissão de Administrador — necessária para capturar tec
 
 ```
 TeclaIA/
-├── ia_atalho.py              # Código principal
-├── requirements.txt          # Dependências Python
-├── 1_INSTALAR.bat            # Instala as dependências
+├── ia_atalho.py              # Código principal (MODOS, Ollama, bandeja, atalhos)
+├── requirements.txt          # Versões fixas das dependências principais
+├── ia_atalho.spec            # Especificação PyInstaller (alternativa ao fluxo do .bat)
+├── 1_INSTALAR.bat            # pip install das dependências
 ├── 2_INICIAR_COMO_ADMIN.bat  # Inicia o programa
-├── 3_INICIAR_COM_WINDOWS.bat # Configura início automático
+├── 3_INICIAR_COM_WINDOWS.bat # Atalho na pasta Inicializar do Windows
+├── 4_CRIAR_EXE.bat           # Build do executável com PyInstaller
+├── LEIAME.txt                # Guia rápido em texto puro (parcialmente legado)
+├── .gitignore
 └── README.md                 # Este arquivo
 ```
 
@@ -116,52 +127,52 @@ TeclaIA/
 
 ## Personalização
 
-Abra `ia_atalho.py` em qualquer editor de texto e edite a seção `CONFIGURACOES` no topo:
+Edite o topo de `ia_atalho.py`:
 
-```python
-ATALHO        = "ctrl+alt+i"   # Mude o atalho de teclado
-MODELO_OLLAMA = "llama3.2"     # Mude o modelo de IA
-TIMEOUT_API   = 60             # Tempo máximo de espera (segundos)
-```
+- **`MODELO_OLLAMA`** — nome do modelo no Ollama (ex.: `llama3.2`, `llama3.2:1b`, `mistral`).
+- **`OLLAMA_URL`** — endpoint da API generate (padrão: `http://localhost:11434/api/generate`).
+- **`TIMEOUT_API`** — tempo máximo da requisição em segundos (padrão: 60).
+- **`MODOS`** — dicionário por atalho (`ctrl+alt+i`, etc.): nomes, cores da janela, `prompt_sistema`, `prompt_usuario` e `modo_resposta` (apenas em **Responder**).
 
-### Outros modelos disponíveis no Ollama
-
-| Modelo | Característica |
-|---|---|
-| `llama3.2` | Padrão — bom equilíbrio velocidade/qualidade |
-| `llama3.2:1b` | Mais rápido, ideal para PCs com menos RAM |
-| `mistral` | Boa alternativa, respostas mais criativas |
-| `phi3` | Modelo leve da Microsoft |
-
-Para baixar outro modelo: `ollama pull <nome>`
+Para mudar atalhos, altere as chaves em `MODOS` e o registro em `main()` (e o menu da bandeja, se quiser manter os textos alinhados).
 
 ---
 
 ## Solução de problemas
 
-**O atalho não funciona**
-Verifique se `2_INICIAR_COMO_ADMIN.bat` foi executado como Administrador.
+**Atalho não funciona**  
+Confirme que o programa foi iniciado com **administrador** (`2_INICIAR_COMO_ADMIN.bat` ou `TeclaIA.exe` aceitando o UAC).
 
-**Ollama não detectado**
-Abra o Ollama pela bandeja do sistema ou reinicie o computador. Verifique em `http://localhost:11434`.
+**Ollama não detectado**  
+Abra o Ollama pela bandeja ou reinicie o PC. Teste: [http://localhost:11434](http://localhost:11434).
 
-**Texto não é substituído em algum app**
-Alguns apps bloqueiam Ctrl+A. Nesse caso, selecione o texto manualmente antes de pressionar o atalho.
+**Texto não substitui em algum app**  
+Alguns programas bloqueiam “selecionar tudo”. Selecione o texto manualmente antes do atalho.
 
-**Resposta muito lenta**
-Troque o modelo para `llama3.2:1b` (mais leve) ou feche outros programas pesados.
+**Resposta lenta**  
+Use um modelo menor (`llama3.2:1b`) ou feche apps pesados.
 
-**Erro de tempo limite**
-Aumente `TIMEOUT_API` no arquivo `ia_atalho.py` (padrão: 60 segundos).
+**Timeout**  
+Aumente `TIMEOUT_API` em `ia_atalho.py`.
+
+**Sem ícone na bandeja**  
+Normal se `pystray`/`Pillow` não instalaram; use o console aberto ou reinstale com `pip install pystray Pillow` (wheel compatível com seu Python).
 
 ---
 
 ## Tecnologias
 
-- [Python 3](https://www.python.org/) — linguagem principal
-- [keyboard](https://github.com/boppreh/keyboard) — captura de atalhos globais
-- [pyperclip](https://github.com/asweigart/pyperclip) — leitura/escrita na área de transferência
-- [requests](https://requests.readthedocs.io/) — comunicação com a API local do Ollama
-- [tkinter](https://docs.python.org/3/library/tkinter.html) — janela de carregamento visual (incluso no Python)
-- [Ollama](https://ollama.com) — motor de execução de modelos de IA localmente
-- [llama3.2](https://ollama.com/library/llama3.2) (Meta) — modelo de linguagem
+- [Python 3](https://www.python.org/)
+- [keyboard](https://github.com/boppreh/keyboard) — atalhos globais
+- [pyperclip](https://github.com/asweigart/pyperclip) — área de transferência
+- [requests](https://requests.readthedocs.io/) — HTTP para o Ollama
+- [tkinter](https://docs.python.org/3/library/tkinter.html) — janela de carregamento / streaming
+- [Pillow](https://python-pillow.org/) + [pystray](https://github.com/moses-palmer/pystray) — ícone na bandeja (opcional)
+- [PyInstaller](https://pyinstaller.org/) — build do `.exe` (via `4_CRIAR_EXE.bat`)
+- [Ollama](https://ollama.com) — execução local de modelos
+
+Dependências pinadas em `requirements.txt`:
+
+- `keyboard==0.13.5`
+- `pyperclip==1.9.0`
+- `requests==2.32.3`
